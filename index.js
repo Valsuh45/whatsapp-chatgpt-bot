@@ -27,11 +27,11 @@ app.post("/whatsapp", async (req, res) => {
     });
 
     const answer = completion.choices[0].message.content;
-    const safeAnswer = answer.length > 4000 ? answer.slice(0, 4000) : answer;
+    console.log("Answer:", answer);
 
     // Return TwiML for WhatsApp reply
     res.type("text/xml");
-    res.send(`<Response><Message>${safeAnswer}</Message></Response>`);
+    res.send(`<Response><Message>${answer}</Message></Response>`);
   } catch (err) {
     console.error("Error:", err);
     if (err.response) {
@@ -40,7 +40,7 @@ app.post("/whatsapp", async (req, res) => {
     }
     res.type("text/xml");
     res.send(
-      `<Response><Message>Oops! Something went wrong.</Message></Response>`
+      `<Response><Message>Oops! Something went wrong.</Message></Response>`,
     );
   }
 });
